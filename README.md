@@ -34,7 +34,7 @@ sudo apt -y install ansible
 
 ## Usage and information
 
-Install .net in your local ubuntu desktop 20.04
+Install .net in your ubuntu environment
 ```bash
 ansible-playbook -i inventory.yml dotnet.yml
 ```
