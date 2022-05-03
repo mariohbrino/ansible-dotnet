@@ -34,7 +34,7 @@ sudo apt -y install ansible
 
 ## Usage and information
 
-Install laravel in your local ubuntu desktop 20.04
+Install .net in your local ubuntu desktop 20.04
 ```bash
 ansible-playbook -i inventory.yml dotnet.yml
 ```
