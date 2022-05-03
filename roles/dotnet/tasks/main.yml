@@ -1,0 +1,27 @@
+---
+- name: Download microsoft product repository
+  get_url:
+    url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+    dest: /tmp/packages-microsoft-prod.deb
+
+- name: Install microsoft product repository
+  apt:
+    deb: /tmp/packages-microsoft-prod.deb
+    update_cache: yes
+  become: true
+
+- name: Install .net core sdk
+  apt:
+    name: dotnet-sdk-6.0
+    state: present
+    force: yes
+    update_cache: yes
+  become: true
+
+- name: Create kestrel.service configuration
+  template:
+    src: files/kestrel.service
+    dest: "{{ env.root_path }}/kestrel.service"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0644

@@ -1,0 +1,22 @@
+---
+- name: Install common dependencies
+  apt:
+    pkg:
+      - curl
+      - wget
+      - zip
+      - unzip
+      - net-tools
+      - network-manager
+      - software-properties-common
+      - apt-transport-https
+    state: present
+    force: yes
+    update_cache: yes
+
+- name: Ensures application folder directory exists
+  file:
+    path: "{{ env.root_path }}"
+    owner: www-data
+    group: www-data
+    state: directory

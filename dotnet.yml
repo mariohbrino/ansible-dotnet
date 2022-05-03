@@ -1,0 +1,8 @@
+---
+- name: Deploy server for .net
+  hosts: dotnet
+  roles:
+    - { role: ufw,          tags: ufw         }
+    - { role: common,       tags: common      }
+    - { role: dotnet,       tags: dotnet      }
+    - { role: nginx,        tags: nginx       }

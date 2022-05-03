@@ -1,0 +1,17 @@
+all:
+  hosts:
+    dotnet:
+      ansible_host: <hostname>
+  vars:
+    username: <username>
+    ansible_user: "{{ username }}"
+    ansible_become: yes
+    ansible_connection: ssh
+    ansible_become_method: sudo
+    ansible_ssh_pipelining: true
+    ansible_python_interpreter: /usr/bin/python3
+    env:
+      app_env: Development
+      telemetry_message: true
+      project_name: <project-name>
+      root_path: <root-path>

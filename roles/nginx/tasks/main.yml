@@ -1,0 +1,26 @@
+---
+- name: Install nginx
+  apt:
+    pkg:
+      - nginx
+    state: latest
+    update_cache: yes
+
+- name: Disable default config
+  file: 
+    dest: /etc/nginx/sites-enabled/default 
+    state: absent
+
+- name: Create nginx.conf configuration
+  template:
+    src: files/nginx.conf
+    dest: "{{ env.root_path }}/nginx.conf"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0644
+
+- name: Start and enable nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
