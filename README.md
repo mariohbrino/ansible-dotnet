@@ -1,4 +1,4 @@
-# Ansible deployment of .net on ubuntu server 20.04
+# Ansible deployment of .net on ubuntu server 20.04 and 22.04
 
 ## Initial settings
 
