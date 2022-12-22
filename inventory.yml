@@ -14,4 +14,5 @@ all:
       app_env: Development
       telemetry_message: true
       project_name: <project-name>
+      conf_path: <conf-path>
       root_path: <root-path>

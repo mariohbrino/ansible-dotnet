@@ -23,7 +23,7 @@
 - name: Create kestrel.service configuration
   template:
     src: files/kestrel.service
-    dest: "{{ env.root_path }}/kestrel.service"
+    dest: "{{ env.conf_path }}/kestrel.service"
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: 0644

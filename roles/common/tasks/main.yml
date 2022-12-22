@@ -20,3 +20,10 @@
     owner: www-data
     group: www-data
     state: directory
+
+- name: Ensures config folder directory exists
+  file:
+    path: "{{ env.conf_path }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    state: directory

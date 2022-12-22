@@ -14,7 +14,7 @@
 - name: Create nginx.conf configuration
   template:
     src: files/nginx.conf
-    dest: "{{ env.root_path }}/nginx.conf"
+    dest: "{{ env.conf_path }}/nginx.conf"
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: 0644
