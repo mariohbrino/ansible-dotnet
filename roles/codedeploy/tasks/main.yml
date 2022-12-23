@@ -1,0 +1,34 @@
+---
+- name: Install ruby 2.0
+  apt:
+    pkg:
+      - wget
+      - ruby-full
+    state: present
+    force: yes
+    update_cache: yes
+
+- name: Check that CodeDeploy is installed
+  stat:
+    path: /opt/codedeploy-agent
+  register: code_deploy_installed
+
+- name: Download CodeDeploy
+  get_url:
+    url: "https://{{ env.bucket_name }}.s3.{{ env.region_identifier }}.amazonaws.com/latest/install"
+    dest: "/home/{{ username }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 775
+  when: not code_deploy_installed.stat.exists
+
+- name: Install CodeDeploy
+  shell: "/home/{{ username }}/install auto"
+  become: true
+  when: not code_deploy_installed.stat.exists
+
+- name: Remove CodeDeploy installer
+  file: 
+    dest: "/home/{{ username }}/install"
+    state: absent
+  when: not code_deploy_installed.stat.exists

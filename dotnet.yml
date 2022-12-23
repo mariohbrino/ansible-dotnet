@@ -6,3 +6,8 @@
     - { role: common,       tags: common      }
     - { role: dotnet,       tags: dotnet      }
     - { role: nginx,        tags: nginx       }
+    - {
+        role: codedeploy,
+        tags: codedeploy,
+        when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == "20.04"
+      }

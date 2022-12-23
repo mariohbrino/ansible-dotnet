@@ -14,7 +14,11 @@ app_env: Development
 telemetry_message: true
 project_name: <project-name>
 root_path: <root-path>
+bucket_name: <bucket_name>
+region_identifier: <region_identifier>
 ```
+
+> Look on the resource kit bucket names by region https://docs.aws.amazon.com/codedeploy/latest/userguide/resource-kit.html#resource-kit-bucket-names
 
 Ansible connection can be set as local or ssh
 ```bash
