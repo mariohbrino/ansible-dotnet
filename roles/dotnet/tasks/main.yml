@@ -14,7 +14,7 @@
 
 - name: Install .net core sdk
   apt:
-    name: dotnet-sdk-6.0
+    name: dotnet-sdk-7.0
     state: present
     force: yes
     update_cache: yes
