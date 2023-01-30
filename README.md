@@ -13,6 +13,7 @@ username: '<username>'
 app_env: Development
 telemetry_message: true
 project_name: <project-name>
+conf_path: <conf-path>
 root_path: <root-path>
 bucket_name: <bucket_name>
 region_identifier: <region_identifier>
