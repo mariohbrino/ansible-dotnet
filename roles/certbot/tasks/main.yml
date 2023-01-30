@@ -1,0 +1,9 @@
+---
+- name: Install Certbot
+  apt:
+    pkg:
+      - certbot
+      - python3-certbot-nginx
+    state: present
+    force: yes
+    update_cache: yes
