@@ -1,22 +1,26 @@
 ---
 - name: Allow access to OpenSSH
+  become: yes
   ufw:
     rule: allow
     port: '22'
     name: OpenSSH
 
 - name: Allow all access to tcp port 80
+  become: yes
   ufw:
     rule: allow
     port: '80'
     proto: tcp
 
 - name: Allow all access to tcp port 443
+  become: yes
   ufw:
     rule: allow
     port: '443'
     proto: tcp
 
 - name: Enable ufw
+  become: yes
   ufw:
     state: enabled

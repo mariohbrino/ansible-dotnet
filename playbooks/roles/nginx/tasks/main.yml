@@ -1,5 +1,6 @@
 ---
 - name: Install nginx
+  become: yes
   apt:
     pkg:
       - nginx
@@ -7,19 +8,22 @@
     update_cache: yes
 
 - name: Disable default config
+  become: yes
   file: 
     dest: /etc/nginx/sites-enabled/default 
     state: absent
 
 - name: Create nginx.conf configuration
+  become: yes
   template:
     src: files/nginx.conf
     dest: "{{ env.conf_path }}/nginx.conf"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: 0644
 
 - name: Start and enable nginx
+  become: yes
   service:
     name: nginx
     state: started

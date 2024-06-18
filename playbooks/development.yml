@@ -1,0 +1,24 @@
+---
+- name: Deploy server for .net
+  hosts: dotnet
+  vars:
+    ansible_user: vagrant
+    env:
+      app_env: Development
+      telemetry_message: true
+      project_name: dotnet
+      conf_path: /home/vagrant/.config/dotnet
+      root_path: /var/www/dotnet
+      bucket_name: aws-codedeploy-us-east-2
+      region_identifier: us-east-2
+  roles:
+    - { role: ufw,          tags: ufw         }
+    - { role: common,       tags: common      }
+    - { role: dotnet,       tags: dotnet      }
+    - { role: nginx,        tags: nginx       }
+    - { role: certbot,      tags: certbot     }
+    - {
+        role: codedeploy,
+        tags: codedeploy,
+        when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == "20.04"
+      }

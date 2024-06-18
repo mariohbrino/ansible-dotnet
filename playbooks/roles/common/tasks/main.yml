@@ -1,5 +1,6 @@
 ---
 - name: Install common dependencies
+  become: yes
   apt:
     pkg:
       - curl
@@ -15,6 +16,7 @@
     update_cache: yes
 
 - name: Ensures application folder directory exists
+  become: yes
   file:
     path: "{{ env.root_path }}"
     owner: www-data
@@ -22,8 +24,9 @@
     state: directory
 
 - name: Ensures config folder directory exists
+  become: yes
   file:
     path: "{{ env.conf_path }}"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     state: directory

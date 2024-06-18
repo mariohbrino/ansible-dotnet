@@ -1,10 +1,9 @@
 all:
   hosts:
     dotnet:
-      ansible_host: <hostname>
+      ansible_host: localhost
   vars:
-    username: <username>
-    ansible_user: "{{ username }}"
+    ansible_user: ubuntu
     ansible_become: yes
     ansible_connection: ssh
     ansible_become_method: sudo

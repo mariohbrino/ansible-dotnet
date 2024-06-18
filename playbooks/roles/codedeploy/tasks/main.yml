@@ -1,5 +1,6 @@
 ---
 - name: Install ruby 2.0
+  become: yes
   apt:
     pkg:
       - wget
@@ -16,19 +17,19 @@
 - name: Download CodeDeploy
   get_url:
     url: "https://{{ env.bucket_name }}.s3.{{ env.region_identifier }}.amazonaws.com/latest/install"
-    dest: "/home/{{ username }}"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    dest: "/home/{{ ansible_user }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: 775
   when: not code_deploy_installed.stat.exists
 
 - name: Install CodeDeploy
-  shell: "/home/{{ username }}/install auto"
-  become: true
+  become: yes
+  shell: "/home/{{ ansible_user }}/install auto"
   when: not code_deploy_installed.stat.exists
 
 - name: Remove CodeDeploy installer
   file: 
-    dest: "/home/{{ username }}/install"
+    dest: "/home/{{ ansible_user }}/install"
     state: absent
   when: not code_deploy_installed.stat.exists

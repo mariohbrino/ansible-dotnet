@@ -6,24 +6,25 @@
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == "20.04"
 
 - name: Install microsoft product repository
+  become: yes
   apt:
     deb: /tmp/packages-microsoft-prod.deb
     update_cache: yes
-  become: true
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == "20.04"
 
 - name: Install .net core sdk
+  become: yes
   apt:
-    name: dotnet-sdk-7.0
+    name: dotnet-sdk-8.0
     state: present
     force: yes
     update_cache: yes
-  become: true
 
 - name: Create kestrel.service configuration
+  become: yes
   template:
     src: files/kestrel.service
     dest: "{{ env.conf_path }}/kestrel.service"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: 0644

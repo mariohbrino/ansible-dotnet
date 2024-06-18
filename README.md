@@ -9,7 +9,7 @@ Define the variables on inventory.yml as per your needs
 Change variables on inventory.yml
 ```bash
 ansible_host: '<hostname>'
-username: '<username>'
+ansible_user: '<ansible_user>'
 app_env: Development
 telemetry_message: true
 project_name: <project-name>
