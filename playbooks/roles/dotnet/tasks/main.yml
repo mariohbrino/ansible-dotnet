@@ -28,3 +28,17 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0644
+
+- name: Create a symbolic link
+  become: yes
+  file:
+    src: "{{ env.conf_path }}/kestrel.service"
+    dest: /etc/systemd/system/kestrel.service
+    state: link
+
+- name: Start and enable kestrel
+  become: yes
+  service:
+    name: kestrel
+    state: started
+    enabled: yes

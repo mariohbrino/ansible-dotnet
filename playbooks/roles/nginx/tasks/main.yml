@@ -22,9 +22,29 @@
     group: "{{ ansible_user }}"
     mode: 0644
 
+- name: Create a symbolic link
+  become: yes
+  file:
+    src: "{{ env.conf_path }}/nginx.conf"
+    dest: /etc/nginx/sites-enabled/{{ env.project_name }}.conf
+    state: link
+
+- name: Add www-data group to vagrant user
+  become: yes
+  user:
+    name: vagrant
+    groups: www-data
+    append: yes
+
 - name: Start and enable nginx
   become: yes
   service:
     name: nginx
     state: started
     enabled: yes
+
+- name: Reload nginx config
+  become: yes
+  service:
+    name: nginx
+    state: restarted
