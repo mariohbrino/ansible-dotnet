@@ -1,7 +1,7 @@
 ---
 - name: Install common dependencies
-  become: yes
-  apt:
+  become: true
+  ansible.builtin.apt:
     pkg:
       - curl
       - wget
@@ -12,21 +12,23 @@
       - software-properties-common
       - apt-transport-https
     state: present
-    force: yes
-    update_cache: yes
+    force: true
+    update_cache: true
 
 - name: Ensures application folder directory exists
-  become: yes
-  file:
+  become: true
+  ansible.builtin.file:
     path: "{{ env.root_path }}"
     owner: www-data
     group: www-data
+    mode: "0650"
     state: directory
 
 - name: Ensures config folder directory exists
-  become: yes
-  file:
+  become: true
+  ansible.builtin.file:
     path: "{{ env.conf_path }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
+    mode: "0650"
     state: directory

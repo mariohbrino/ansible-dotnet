@@ -17,7 +17,7 @@ Vagrant.configure('2') do |config|
     end
 
     node.vm.provision 'ansible' do |ansible|
-      ansible.playbook = 'playbooks/development.yml'
+      ansible.playbook = 'playbooks/vagrant.yml'
       ansible.compatibility_mode = '1.8'
     end
   end

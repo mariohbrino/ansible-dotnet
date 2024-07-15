@@ -1,50 +1,50 @@
 ---
 - name: Install nginx
-  become: yes
-  apt:
+  become: true
+  ansible.builtin.apt:
     pkg:
       - nginx
-    state: latest
-    update_cache: yes
+    state: present
+    update_cache: true
 
 - name: Disable default config
-  become: yes
-  file: 
-    dest: /etc/nginx/sites-enabled/default 
+  become: true
+  ansible.builtin.file:
+    dest: /etc/nginx/sites-enabled/default
     state: absent
 
 - name: Create nginx.conf configuration
-  become: yes
-  template:
+  become: true
+  ansible.builtin.template:
     src: files/nginx.conf
     dest: "{{ env.conf_path }}/nginx.conf"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0644
+    mode: "0644"
 
 - name: Create a symbolic link
-  become: yes
-  file:
+  become: true
+  ansible.builtin.file:
     src: "{{ env.conf_path }}/nginx.conf"
     dest: /etc/nginx/sites-enabled/{{ env.project_name }}.conf
     state: link
 
 - name: Add www-data group to vagrant user
-  become: yes
-  user:
+  become: true
+  ansible.builtin.user:
     name: vagrant
     groups: www-data
-    append: yes
+    append: true
 
 - name: Start and enable nginx
-  become: yes
-  service:
+  become: true
+  ansible.builtin.service:
     name: nginx
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Reload nginx config
-  become: yes
-  service:
+  become: true
+  ansible.builtin.service:
     name: nginx
     state: restarted

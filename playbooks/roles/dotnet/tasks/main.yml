@@ -1,44 +1,45 @@
 ---
 - name: Download microsoft product repository
-  get_url:
+  ansible.builtin.get_url:
     url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
     dest: /tmp/packages-microsoft-prod.deb
+    mode: "0650"
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == "20.04"
 
 - name: Install microsoft product repository
-  become: yes
-  apt:
+  become: true
+  ansible.builtin.apt:
     deb: /tmp/packages-microsoft-prod.deb
-    update_cache: yes
+    update_cache: true
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == "20.04"
 
 - name: Install .net core sdk
-  become: yes
-  apt:
+  become: true
+  ansible.builtin.apt:
     name: dotnet-sdk-8.0
     state: present
-    force: yes
-    update_cache: yes
+    force: true
+    update_cache: true
 
 - name: Create kestrel.service configuration
-  become: yes
-  template:
+  become: true
+  ansible.builtin.template:
     src: files/kestrel.service
     dest: "{{ env.conf_path }}/kestrel.service"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0644
+    mode: "0644"
 
 - name: Create a symbolic link
-  become: yes
-  file:
+  become: true
+  ansible.builtin.file:
     src: "{{ env.conf_path }}/kestrel.service"
     dest: /etc/systemd/system/kestrel.service
     state: link
 
 - name: Start and enable kestrel
-  become: yes
-  service:
+  become: true
+  ansible.builtin.service:
     name: kestrel
     state: started
-    enabled: yes
+    enabled: true

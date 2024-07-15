@@ -4,7 +4,7 @@ all:
       ansible_host: localhost
   vars:
     ansible_user: ubuntu
-    ansible_become: yes
+    ansible_become: true
     ansible_connection: ssh
     ansible_become_method: sudo
     ansible_ssh_pipelining: true

@@ -1,35 +1,36 @@
 ---
 - name: Install ruby 2.0
-  become: yes
-  apt:
+  become: true
+  ansible.builtin.apt:
     pkg:
       - wget
       - ruby-full
     state: present
-    force: yes
-    update_cache: yes
+    force: true
+    update_cache: true
 
 - name: Check that CodeDeploy is installed
-  stat:
+  ansible.builtin.stat:
     path: /opt/codedeploy-agent
   register: code_deploy_installed
 
 - name: Download CodeDeploy
-  get_url:
+  ansible.builtin.get_url:
     url: "https://{{ env.bucket_name }}.s3.{{ env.region_identifier }}.amazonaws.com/latest/install"
     dest: "/home/{{ ansible_user }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 775
+    mode: "0775"
   when: not code_deploy_installed.stat.exists
 
 - name: Install CodeDeploy
-  become: yes
-  shell: "/home/{{ ansible_user }}/install auto"
+  become: true
+  ansible.builtin.command: "/home/{{ ansible_user }}/install auto"
   when: not code_deploy_installed.stat.exists
+  changed_when: code_deploy_installed.stat.exists
 
 - name: Remove CodeDeploy installer
-  file: 
+  ansible.builtin.file:
     dest: "/home/{{ ansible_user }}/install"
     state: absent
   when: not code_deploy_installed.stat.exists
